@@ -32,7 +32,7 @@ namespace ContaCorrente.ConsoleApp
                     case "2":
                         Console.Write("Informe o valor do depósito: ");
                         valor = Convert.ToDecimal(Console.ReadLine());
-
+                        conta1.Depositar(valor);
                         break;
                     case "3":
 

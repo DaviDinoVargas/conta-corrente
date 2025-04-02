@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContaCorrente.ConsoleApp
 {
-    
+
     public class ContaBancaria
     {
         public int Numero { get; set; }
@@ -20,7 +20,7 @@ namespace ContaCorrente.ConsoleApp
             Numero = numero;
             Saldo = saldoInicial;
             Limite = limite;
-        
+
         }
         public void Sacar(decimal valor)
         {
@@ -35,7 +35,21 @@ namespace ContaCorrente.ConsoleApp
                 Console.WriteLine("Saldo insuficiente ou valor inválido.");
             }
         }
+        public void Depositar(decimal valor)
+        {
+            if  (valor > 0)
+            { 
+                Saldo += valor;
+                Console.Clear();
+                Console.WriteLine("Depósito Realizado com Sucesso");
+            }
+            else
+            {
+                Console.WriteLine("Inválido");
+            }
+        }
 
 
-    }
-}
+
+    } 
+} 
