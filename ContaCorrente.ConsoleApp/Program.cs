@@ -27,7 +27,7 @@ namespace ContaCorrente.ConsoleApp
                     case "1":
                         Console.Write("Informe o valor do saque: ");
                         valor = Convert.ToDecimal(Console.ReadLine());
-
+                        conta1.Sacar(valor);
                         break;
                     case "2":
                         Console.Write("Informe o valor do depósito: ");

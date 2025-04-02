@@ -22,7 +22,19 @@ namespace ContaCorrente.ConsoleApp
             Limite = limite;
         
         }
-
+        public void Sacar(decimal valor)
+        {
+            if (valor > 0 && valor <= (Saldo + Limite))
+            {
+                Saldo -= valor;
+                Console.Clear();
+                Console.WriteLine("Saque realizado.");
+            }
+            else
+            {
+                Console.WriteLine("Saldo insuficiente ou valor inválido.");
+            }
+        }
 
 
     }
