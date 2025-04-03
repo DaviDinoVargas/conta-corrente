@@ -28,11 +28,11 @@ namespace ContaCorrente.ConsoleApp
             {
                 Saldo -= valor;
                 Console.Clear();
-                Console.WriteLine("Saque realizado.");
+                Console.WriteLine("Saque realizado.\n");
             }
             else
             {
-                Console.WriteLine("Saldo insuficiente ou valor inválido.");
+                Console.WriteLine("Saldo insuficiente ou valor inválido.\n");
             }
         }
         public void Depositar(decimal valor)
@@ -41,14 +41,18 @@ namespace ContaCorrente.ConsoleApp
             { 
                 Saldo += valor;
                 Console.Clear();
-                Console.WriteLine("Depósito Realizado com Sucesso");
+                Console.WriteLine("Depósito Realizado com Sucesso\n");
             }
             else
             {
                 Console.WriteLine("Inválido");
             }
         }
-
+        public void ConsultarSaldo()
+        {
+            Console.Clear();
+            Console.WriteLine($"Saldo atual: {Saldo:C} | Limite: {Limite:C}\n");
+        }
 
 
     } 

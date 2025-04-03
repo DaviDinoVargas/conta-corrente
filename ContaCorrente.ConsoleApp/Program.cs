@@ -35,7 +35,8 @@ namespace ContaCorrente.ConsoleApp
                         conta1.Depositar(valor);
                         break;
                     case "3":
-
+                        Console.Write("Saldo Atual: ");
+                        conta1.ConsultarSaldo();
                         break;
                     case "4":
 
