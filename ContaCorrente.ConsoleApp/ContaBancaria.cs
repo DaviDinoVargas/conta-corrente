@@ -25,30 +25,40 @@ namespace ContaCorrente.ConsoleApp
         }
         public void Sacar(decimal valor)
         {
-            if (valor > 0 && valor <= (Saldo + Limite))
+            if (valor > 0 && (Saldo + Limite) >= valor)
             {
                 Saldo -= valor;
+                if (Saldo < 0)
+                {
+                    Limite += Saldo;
+                    if (Limite < 0) Limite = 0;
+                }
                 RegistrarMovimentacao($"Saque: -{valor:C}");
-                Console.Clear();
-                Console.WriteLine("Saque realizado.\n");
+                Console.WriteLine("Saque realizado com sucesso.");
             }
             else
             {
-                Console.WriteLine("Saldo insuficiente ou valor inválido.\n");
+                Console.WriteLine("Operação não permitida: saldo insuficiente considerando o limite.");
             }
         }
         public void Depositar(decimal valor)
         {
             if (valor > 0)
             {
+                if (Saldo < 0)
+                {
+                    decimal valorRestaurado = Math.Min(-Saldo, valor);
+                    Limite += valorRestaurado;
+                    Saldo += valorRestaurado;
+                    valor -= valorRestaurado;
+                }
                 Saldo += valor;
                 RegistrarMovimentacao($"Depósito: +{valor:C}");
-                Console.Clear();
-                Console.WriteLine("Depósito Realizado com Sucesso\n");
+                Console.WriteLine("Depósito realizado com sucesso.");
             }
             else
             {
-                Console.WriteLine("Inválido");
+                Console.WriteLine("Valor inválido.");
             }
         }
         public void ConsultarSaldo()
@@ -67,10 +77,14 @@ namespace ContaCorrente.ConsoleApp
         public void EmitirExtrato()
         {
             Console.Clear();
-            Console.WriteLine("Extrato da Conta:");
+            Console.WriteLine("_____________________________");
+            Console.WriteLine($"Extrato da Conta {IndexConta}");
+            Console.WriteLine($"Saldo Atual: {Saldo:C}");
+            Console.WriteLine("_____________________________");
+
             for (int i = 0; i < IndexMovimentacoes; i++)
             {
-                Console.WriteLine(Movimentacoes[i]);
+                Console.WriteLine(Movimentacoes[i]+"\n");
             }
         }
         public void Transferir(ContaBancaria destino, decimal valor)
@@ -79,7 +93,7 @@ namespace ContaCorrente.ConsoleApp
             {
                 Saldo -= valor;
                 destino.Depositar(valor);
-                RegistrarMovimentacao($"\nValor enviado: -{valor:C} para conta: {destino.IndexConta}\n");
+                RegistrarMovimentacao($"Valor enviado: -{valor:C} para conta: {destino.IndexConta}\n");
                 Console.WriteLine("Concluído com Sucesso!\n");
             }
             else
