@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace ContaCorrente.ConsoleApp
 
     public class ContaBancaria
     {
-        public int Numero { get; set; }
+        public int IndexConta { get; set; }
         public decimal Saldo { get; private set; }
         public decimal Limite { get; set; }
         private string[] Movimentacoes = new string[100];
@@ -17,7 +18,7 @@ namespace ContaCorrente.ConsoleApp
 
         public ContaBancaria(int numero, decimal saldoInicial, decimal limite)
         {
-            Numero = numero;
+            IndexConta = numero;
             Saldo = saldoInicial;
             Limite = limite;
 
@@ -70,6 +71,20 @@ namespace ContaCorrente.ConsoleApp
             for (int i = 0; i < IndexMovimentacoes; i++)
             {
                 Console.WriteLine(Movimentacoes[i]);
+            }
+        }
+        public void Transferir(ContaBancaria destino, decimal valor)
+        {
+            if (valor > 0 && valor <= (Saldo + Limite))
+            {
+                Saldo -= valor;
+                destino.Depositar(valor);
+                RegistrarMovimentacao($"\nValor enviado: -{valor:C} para conta: {destino.IndexConta}\n");
+                Console.WriteLine("Concluído com Sucesso!\n");
+            }
+            else
+            {
+                Console.WriteLine("Saldo Insuficiente ou Inválido\n");
             }
         }
     }

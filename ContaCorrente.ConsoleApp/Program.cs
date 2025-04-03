@@ -45,7 +45,7 @@ namespace ContaCorrente.ConsoleApp
                     case "5":
                         Console.Write("Informe o valor da transferência: ");
                         valor = Convert.ToDecimal(Console.ReadLine());
-
+                        conta1.Transferir(conta2, valor);
                         break;
                     case "0":
                         return;
