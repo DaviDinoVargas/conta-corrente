@@ -90,6 +90,9 @@ Escolha uma operação:
 Informe o valor do depósito: 500
 Depósito realizado com sucesso.
 ```
+## 💻 Exemplo de Execução:  
+
+![](https://i.imgur.com/lEr9gv7.gif)
 
 ---
 
