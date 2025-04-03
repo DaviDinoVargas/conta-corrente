@@ -39,7 +39,8 @@ namespace ContaCorrente.ConsoleApp
                         conta1.ConsultarSaldo();
                         break;
                     case "4":
-
+                        Console.WriteLine("Extrato Bancário: ");
+                        conta1.EmitirExtrato();
                         break;
                     case "5":
                         Console.Write("Informe o valor da transferência: ");

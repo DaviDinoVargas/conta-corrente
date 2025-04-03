@@ -27,6 +27,7 @@ namespace ContaCorrente.ConsoleApp
             if (valor > 0 && valor <= (Saldo + Limite))
             {
                 Saldo -= valor;
+                RegistrarMovimentacao($"Saque: -{valor:C}");
                 Console.Clear();
                 Console.WriteLine("Saque realizado.\n");
             }
@@ -37,9 +38,10 @@ namespace ContaCorrente.ConsoleApp
         }
         public void Depositar(decimal valor)
         {
-            if  (valor > 0)
-            { 
+            if (valor > 0)
+            {
                 Saldo += valor;
+                RegistrarMovimentacao($"Depósito: +{valor:C}");
                 Console.Clear();
                 Console.WriteLine("Depósito Realizado com Sucesso\n");
             }
@@ -54,6 +56,21 @@ namespace ContaCorrente.ConsoleApp
             Console.WriteLine($"Saldo atual: {Saldo:C} | Limite: {Limite:C}\n");
         }
 
-
-    } 
-} 
+        public void RegistrarMovimentacao(string detalhesConta)
+        {
+            if (IndexMovimentacoes < Movimentacoes.Length)
+            {
+                Movimentacoes[IndexMovimentacoes++] = detalhesConta;
+            }
+        }
+        public void EmitirExtrato()
+        {
+            Console.Clear();
+            Console.WriteLine("Extrato da Conta:");
+            for (int i = 0; i < IndexMovimentacoes; i++)
+            {
+                Console.WriteLine(Movimentacoes[i]);
+            }
+        }
+    }
+}
