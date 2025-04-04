@@ -1,4 +1,7 @@
-﻿namespace ContaCorrente.ConsoleApp
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.ComponentModel;
+
+namespace ContaCorrente.ConsoleApp
 {
 
     public class ContaBancaria
@@ -8,13 +11,14 @@
         public decimal Limite { get; set; }
         private string[] Movimentacoes = new string[100];
         private int IndexMovimentacoes = 0;
+        public Historico[] historicos;
 
         public ContaBancaria(int numero, decimal saldoInicial, decimal limite)
         {
             IndexConta = numero;
             Saldo = saldoInicial;
             Limite = limite;
-
+            historicos = new Historico[100];
         }
         public void Sacar(decimal valor)
         {
@@ -28,11 +32,20 @@
                 }
                 RegistrarMovimentacao($"Saque: -{valor:C}");
                 Console.WriteLine("Saque realizado com sucesso.");
+
+                Historico novoHistorico = new Historico();
+                novoHistorico.quantia = valor;
+                novoHistorico.tipo = "Débito";
+                novoHistorico.descricao = "Débito de R$" + valor + " reais";
+
+                int posicaoVazia = PegaPosicaoVazia();
+                historicos[posicaoVazia] = novoHistorico;
             }
             else
             {
                 Console.WriteLine("Operação não permitida: saldo insuficiente considerando o limite.");
             }
+
         }
         public void Depositar(decimal valor)
         {
@@ -48,6 +61,15 @@
                 Saldo += valor;
                 RegistrarMovimentacao($"Depósito: +{valor:C}");
                 Console.WriteLine("Depósito realizado com sucesso.");
+
+                Historico novoHistorico = new Historico();
+                novoHistorico.quantia = valor;
+                novoHistorico.tipo = "Crédito";
+                novoHistorico.descricao = "Crédito de R$" + valor + " reais";
+
+                int posicaoVazia = PegaPosicaoVazia();
+                historicos[posicaoVazia] = novoHistorico;
+
             }
             else
             {
@@ -93,6 +115,36 @@
             {
                 Console.WriteLine("Saldo Insuficiente ou Inválido\n");
             }
+        }
+        public int PegaPosicaoVazia()
+        {
+            for (int i = 0; i < historicos.Length; i++)
+            {
+                if (historicos[i] == null)
+                    return i;
+            }
+            return -1;
+        }
+        public void ExibirExtrato()
+
+        {
+
+            Console.WriteLine("Numero da conta {0}", IndexConta);
+
+            Console.WriteLine("Movimentações: ");
+
+            foreach (Historico novoHistorico in historicos)
+
+            {
+
+                if (novoHistorico != null)
+
+                    Console.WriteLine(novoHistorico.descricao);
+
+            }
+
+            Console.WriteLine("Saldo atual: {0}", Saldo + Limite);
+
         }
     }
 }

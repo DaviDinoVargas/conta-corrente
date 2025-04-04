@@ -70,6 +70,10 @@
                             Console.WriteLine("Voltando à seleção de contas...");
                             voltarParaContas = true;
                             break;
+                        case "7":
+                            contaAtual.ExibirExtrato();
+                            break;
+
 
                         case "0":
                             return;
