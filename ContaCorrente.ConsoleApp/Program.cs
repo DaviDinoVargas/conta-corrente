@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ContaCorrente.ConsoleApp
+﻿namespace ContaCorrente.ConsoleApp
 {
     internal class Program
     {
